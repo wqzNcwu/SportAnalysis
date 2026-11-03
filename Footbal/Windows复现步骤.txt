@@ -1,0 +1,56 @@
+Roboflow Sports 足球 RADAR Demo：Windows 复现步骤
+
+一、准备环境
+
+1. 安装 Python 3.10～3.14。
+2. 解压本代码包，在 PowerShell 进入项目根目录。
+3. 创建并启用虚拟环境：
+
+python -m venv .venv
+.\.venv\Scripts\Activate.ps1
+
+4. 安装项目和足球示例依赖：
+
+python -m pip install -e .
+python -m pip install -r .\examples\soccer\requirements.txt
+
+如果电脑有 NVIDIA 显卡并希望使用 GPU，可安装 CUDA 版 PyTorch；没有 GPU 则直接使用 CPU：
+
+python -m pip install torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cu128
+
+二、下载官方视频和预训练模型
+
+进入足球示例目录：
+
+cd .\examples\soccer
+
+安装下载工具：
+
+python -m pip install gdown
+
+手动下载以下文件，放入 examples\soccer\data 文件夹：
+
+football-player-detection.pt
+football-ball-detection.pt
+football-pitch-detection.pt
+2e57b9_0.mp4
+
+对应下载命令位于同目录的 download_data.ps1，也可以直接运行：
+
+powershell -ExecutionPolicy Bypass -File .\download_data.ps1
+
+三、运行 RADAR
+
+如果使用 NVIDIA GPU：
+
+python main.py --source_video_path data\2e57b9_0.mp4 --target_video_path data\radar.mp4 --device cuda --mode RADAR
+
+如果没有 NVIDIA GPU：
+
+python main.py --source_video_path data\2e57b9_0.mp4 --target_video_path data\radar.mp4 --device cpu --mode RADAR
+
+运行完成后，结果位于：
+
+examples\soccer\data\radar.mp4
+
+说明：本项目使用官方预训练模型进行推理，不需要重新训练模型。代码包本身不包含 .venv、模型和视频，下载脚本会从 Roboflow 官方示例地址获取它们。

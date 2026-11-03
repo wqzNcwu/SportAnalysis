@@ -1,0 +1,14 @@
+项目：Roboflow Sports 足球 RADAR Demo
+
+结果视频：radar.mp4
+源码文件：main.py
+项目说明：README.md
+
+运行命令：
+python main.py --source_video_path data\2e57b9_0.mp4 --target_video_path data\radar.mp4 --device cuda --mode RADAR
+
+运行效果：
+检测并跟踪足球运动员，区分球队颜色，并将球员位置投影到足球场雷达图中。
+
+说明：
+本 Demo 使用官方预训练模型完成推理，没有重新训练模型。
